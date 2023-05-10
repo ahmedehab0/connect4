@@ -24,6 +24,7 @@ typedef struct {
 typedef struct {
 	player player1;
 	player player2;
+	int computer_level;
 } COMPUTER_GAME;
 
 //FUNCTIONS
