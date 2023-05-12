@@ -202,7 +202,7 @@ while (re_play)
 		cout<<"it's a tie\n";
 	}
 
-	cout << setw(12) << "1- Re_play\n";
+	cout << "\n" << "\n" << setw(12) << "1- Re_play\n";
 	cout << setw(12) << "2- Exit \n";
 	cout << "Enter your chioce : ";
 	cin >> choice;
@@ -257,7 +257,7 @@ while (re_play)
 		cout<<"it's a tie\n";
 	}
 
-	cout << setw(12) << "1- Re_play\n";
+	cout << "\n" << "\n" << setw(12) << "1- Re_play\n";
 	cout << setw(12) << "2- Exit \n";
 	cout << "Enter your chioce : ";
 	cin >> choice;
