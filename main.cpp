@@ -141,23 +141,33 @@ char get_winner()
 	}
 	//check diagnol
 	
-	for (int rows = 0; rows < BOARD_SIZE; rows++)
+	for (int rows = 0, i = 0, j = 5, col = 0; i < BOARD_SIZE - 3; i++, rows++, j--)
 	{
-		for (int col = 0; col < 5; col++)
+		rows = 0 + i;
+		col = 0;
+		j = 5 - i;
+		for (; j > 0; j--, rows++, col++)
 		{
 			if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col + 1] && board[rows][col] == 
 					board[rows + 2][col + 2]&& board[rows][col] == board[rows + 3][col + 3])
 				return board[rows][col];
+
 		}
 	}	
-	for (int rows = 0,col = 1; col < BOARD_SIZE - 3; col++)
+		for (int rows = 0, j = 4, i = 0, col = 0; i < BOARD_SIZE - 3; col++, j--, i++)
+		{
+			rows = 0;
+			col = 1 + i;
+			j = 4 - i;
+			for (; j > 0; j--, rows++, col++)
+			{
+				if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col + 1] && board[rows][col] ==
+						board[rows + 2][col + 2]&& board[rows][col] == board[rows + 3][col + 3])
+					return board[rows][col];
 
-	{
-		if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col + 1] && board[rows][col] == 
-					board[rows + 2][col + 2]&& board[rows][col] == board[rows + 3][col + 3])
-				return board[rows][col];
-	}
-	return '-';
+			}
+		}
+			return ('-');
 }
 /**play_1player_game function to implement the single player mode
  *takes player parameter
