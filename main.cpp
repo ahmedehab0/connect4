@@ -139,34 +139,34 @@ char get_winner()
 				return (board[col][rows]);
 		}
 	}
-	//check diagnol
-	
-	for (int rows = 0, i = 0, j = 5, col = 0; i < BOARD_SIZE - 3; i++, rows++, j--)
-	{
-		rows = 0 + i;
-		col = 0;
-		j = 5 - i;
-		for (; j > 0; j--, rows++, col++)
-		{
-			if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col + 1] && board[rows][col] == 
-					board[rows + 2][col + 2]&& board[rows][col] == board[rows + 3][col + 3])
-				return board[rows][col];
+	   // Check diagonal lines (top-left to bottom-right)
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (board[i][j] != ' ' &&
+                board[i][j] == board[i+1][j+1] &&
+                board[i][j] == board[i+2][j+2] &&
+                board[i][j] == board[i+3][j+3] &&
+                board[i][j] == board[i+4][j+4]) {
 
-		}
-	}	
-		for (int rows = 0, j = 4, i = 0, col = 0; i < BOARD_SIZE - 3; col++, j--, i++)
-		{
-			rows = 0;
-			col = 1 + i;
-			j = 4 - i;
-			for (; j > 0; j--, rows++, col++)
-			{
-				if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col + 1] && board[rows][col] ==
-						board[rows + 2][col + 2]&& board[rows][col] == board[rows + 3][col + 3])
-					return board[rows][col];
+                return (board[i][j]);
+            }
+        }
+    }
+    
+    // Check diagonal lines (bottom-left to top-right)
+    for (int i = 4; i < 8; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (board[i][j] != ' ' &&
+                board[i][j] == board[i-1][j+1] &&
+                board[i][j] == board[i-2][j+2] &&
+                board[i][j] == board[i-3][j+3] &&
+                board[i][j] == board[i-4][j+4]) {
 
-			}
-		}
+		    return board[i][j];
+            }
+        }
+    }
+
 			return ('-');
 }
 /**play_1player_game function to implement the single player mode
