@@ -167,7 +167,33 @@ char get_winner()
 
 			}
 		}
-			return ('-');
+	for (int rows = 0, i = 0, j = 5, col = 0; i < BOARD_SIZE - 3; i++, rows++, j--)
+	{
+		rows = 0 + i;
+		col = 7;
+		j = 5 - i;
+		for (; j > 0; j--, rows++, col--)
+		{
+			if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col - 1] && 
+					board[rows][col] == board[rows + 2][col - 2] && board[rows][col] == board[rows + 3][col - 3])
+				return board[rows][col];
+
+		}
+	}
+		for (int rows = 0, j = 4, i = 0, col = 6; i < BOARD_SIZE - 3; col--, j--, i++)
+		{
+			rows = 0 ;
+			col -= 0;
+			j = 4 - i;
+			for (; j > 0; j--, rows++, col--)
+			{
+				if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col - 1] && board[rows][col] ==
+						board[rows + 2][col - 2]&& board[rows][col] == board[rows + 3][col - 3])
+					return board[rows][col];
+
+			}
+		}
+	return ('-');
 }
 /**play_1player_game function to implement the single player mode
  *takes player parameter
