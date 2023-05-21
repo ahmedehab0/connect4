@@ -10,8 +10,6 @@ using namespace std;
 
 const int BOARD_SIZE = 8;
 const int width = 40;
-int plays = 0;
-
 char board[BOARD_SIZE][BOARD_SIZE];
 
 typedef struct player {
