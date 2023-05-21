@@ -10,6 +10,7 @@ using namespace std;
 
 const int BOARD_SIZE = 8;
 const int width = 40;
+int plays = 0;
 
 char board[BOARD_SIZE][BOARD_SIZE];
 
@@ -60,57 +61,6 @@ void print_board()
     }
 
 }
-/**human_move function takes the users choice
- * takes player parameter
- *
- */
-void human_move(player player)
-{
-	int choice;
-	
-	cout <<"player " << player.sympol << " enter your choice : ";
-	cin >> choice;
-	int col = choice - 1;
-
-	for (int rows = BOARD_SIZE - 1; rows >= 0; rows--)
-	{
-		if (board[rows][col] == ' ')
-		{
-			board[rows][col] = player.sympol;
-			break;
-		}
-		else 
-			continue;
-		
-	}
-}
-/**rand_move function to make the computer move
- *takes no parameters
- */
-void rand_move(player player)
-{
-	srand(time(NULL));
-	int choice = rand() % BOARD_SIZE;
-	int col = choice; 
-	for (int rows = BOARD_SIZE - 1; rows >= 0; rows--)
-	{
-		if (board[rows][col] == ' ')
-		{
-			board[rows][col] = player.sympol;
-			break;
-		}
-		else
-			continue;
-
-	}
-}
-/**animate_move function to delay the move
- *takes no paramaters
- */
-void animate_move()
-{
-	this_thread::sleep_for(chrono::milliseconds(200));
-}
 /**get winner function checks for the winner
  *takes no parameter
  *returns : char of the winner on success / '-' if fails
@@ -118,7 +68,7 @@ void animate_move()
 char get_winner()
 {
 	//check rows
-	
+
 	for (int rows = 0; rows < BOARD_SIZE; rows++)
 	{
 		for(int col = 0; col < 5; col++)
@@ -128,8 +78,8 @@ char get_winner()
 			return (board[rows][col]);
 		}
 	}
-	//check columns 
-	
+	//check columns
+
 	for (int col = 0; col < BOARD_SIZE; col++)
 	{
 		for (int rows = 0; rows < 5; rows++)
@@ -140,7 +90,7 @@ char get_winner()
 		}
 	}
 	//check diagnol
-	
+
 	for (int rows = 0, i = 0, j = 5, col = 0; i < BOARD_SIZE - 3; i++, rows++, j--)
 	{
 		rows = 0 + i;
@@ -148,12 +98,12 @@ char get_winner()
 		j = 5 - i;
 		for (; j > 0; j--, rows++, col++)
 		{
-			if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col + 1] && board[rows][col] == 
+			if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col + 1] && board[rows][col] ==
 					board[rows + 2][col + 2]&& board[rows][col] == board[rows + 3][col + 3])
 				return board[rows][col];
 
 		}
-	}	
+	}
 		for (int rows = 0, j = 4, i = 0, col = 0; i < BOARD_SIZE - 3; col++, j--, i++)
 		{
 			rows = 0;
@@ -174,7 +124,7 @@ char get_winner()
 		j = 5 - i;
 		for (; j > 0; j--, rows++, col--)
 		{
-			if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col - 1] && 
+			if (board[rows][col] != ' ' && board[rows][col] == board[rows + 1][col - 1] &&
 					board[rows][col] == board[rows + 2][col - 2] && board[rows][col] == board[rows + 3][col - 3])
 				return board[rows][col];
 
@@ -195,8 +145,70 @@ char get_winner()
 		}
 	return ('-');
 }
-/**play_1player_game function to implement the single player mode
- *takes player parameter
+/**human_move function takes the users choice
+ * takes player parameter
+ *
+ */
+void human_move(player player)
+{
+	int choice, col;
+
+	cout <<"player " << player.sympol << " enter your choice : ";
+	cin >> choice;
+	col = choice - 1;
+
+	if (choice >= 1 && choice <= 8 && board[0][col] == ' ')
+	{
+		for (int rows = BOARD_SIZE - 1; rows >= 0; rows--)
+		{
+			if (board[rows][col] == ' ')
+			{
+				board[rows][col] = player.sympol;
+				break;
+			}
+		}
+	}
+	else 
+	{
+		cout <<"invalid move, please choose number from 1 to 8\n";
+		human_move(player);
+	}
+}
+/**rand_move function to make the computer move
+ *@player - struct 
+ */
+void rand_move(player player)
+{
+	srand(time(NULL));
+	int choice = rand() % BOARD_SIZE;
+	int col = choice; 
+	if (board[0][col] == ' ')
+	{
+	for (int rows = BOARD_SIZE - 1; rows >= 0; rows--)
+	{
+		if (board[rows][col] == ' ')
+		{
+			board[rows][col] = player.sympol;
+			break;
+		}
+	}
+	}
+	else 
+	{
+		rand_move(player);
+	}
+}
+/**animate_move function to delay the move
+ *takes no paramaters
+ */
+void animate_move()
+{
+	this_thread::sleep_for(chrono::milliseconds(200));
+}
+/**play-1player_game - implement the one player mode
+ *returns : char of the winner on success / '-' if fails
+ *@human_player
+ *@computer_player
  */
 void play_1player_game(player human_player, player computer_player)
 {
@@ -339,12 +351,10 @@ void menu()
 		
 		cout << "enter your choice : ";
 		cin>> levels;
-            player human_player = {'X', human_move};
-            player computer_player = {'O', rand_move};
-            play_1player_game(human_player, computer_player);
-        }
-        
-    
+            		player human_player = {'X', human_move};
+            		player computer_player = {'O', rand_move};
+            		play_1player_game(human_player, computer_player);
+	}
 	else if (choice == 2)
 	{
             player player1 = {'X', human_move};
