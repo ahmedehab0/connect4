@@ -368,7 +368,10 @@ void menu()
 		exit(0);
 	}
 	else
+	{
 		cout <<"invalid option please choose number from 1 to 3\n";
+		menu();
+	}
 }
 int main()
 {
